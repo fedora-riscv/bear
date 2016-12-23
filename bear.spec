@@ -10,6 +10,8 @@ License:        GPLv3+ and CC-BY-SA
 URL:            https://github.com/j-jorge/bear
 Source0:        https://github.com/j-jorge/bear/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 
+ExcludeArch: ppc64
+
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -153,6 +155,7 @@ fi
 
 %changelog
 * Fri Dec 23 2016 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.7gitac6be8b
+- add ExcludeArch: ppc64
 - change to -DCMAKE_SKIP_RPATH:BOOL=ON
 - obsolete chrpath command
 - convert docbook2man filename taken from .sgml file to lowercase
