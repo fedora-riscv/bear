@@ -1,10 +1,10 @@
-# https://github.com/j-jorge/bear/commit/ac6be8bebf35cd1a4d4151773707c9ee313b154e
-%global commit0 ac6be8bebf35cd1a4d4151773707c9ee313b154e
+# https://github.com/j-jorge/bear/commit/781ec8022b652b6ba2b76e4385d08c1ef320fcc5
+%global commit0 781ec8022b652b6ba2b76e4385d08c1ef320fcc5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           bear
 Version:        0.7.0
-Release:        0.8git%{shortcommit0}%{?dist}
+Release:        0.9git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -71,8 +71,6 @@ Development files for %{name}
 
 # change docbook_to_man to docbook2man
 sed -i -e 's|docbook-to-man|docbook2man|g' cmake-helper/docbook-to-man.cmake
-# convert docbook2man filename taken from .sgml file to lowercase
-sed -i 's|<refentrytitle>\(.*\)</refentrytitle>|<refentrytitle>\L\1</refentrytitle>|' bear-*/desktop/man/*.sgml
 
 # delete glew code because it picks up BSD license
 rm -rf bear-engine/core/src/visual/glew/
@@ -157,6 +155,9 @@ fi
 
 
 %changelog
+* Fri Dec 30 2016 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.9git781ec80
+- update to 0.7.0-0.9git781ec80
+
 * Tue Dec 27 2016 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.8gitac6be8b
 - add if condition due ppc64le build problem
 
