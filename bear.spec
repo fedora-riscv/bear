@@ -4,7 +4,7 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.9git%{shortcommit0}%{?dist}
+Release:        0.10git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -27,6 +27,8 @@ BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(SDL2_mixer)
 BuildRequires:  wxGTK-devel
 BuildConflicts: wxGTK3-devel
+Requires:       hicolor-icon-theme
+
 
 %description
 The Bear engine is a set of C++ libraries and tools dedicated to creating
@@ -155,6 +157,9 @@ fi
 
 
 %changelog
+* Mon Jan 02 2017 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.10git781ec80
+- add RR hicolor-icon-theme
+
 * Fri Dec 30 2016 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.9git781ec80
 - update to 0.7.0-0.9git781ec80
 
