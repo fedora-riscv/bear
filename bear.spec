@@ -4,7 +4,7 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.10git%{shortcommit0}%{?dist}
+Release:        0.11.20161230git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -20,7 +20,7 @@ BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-utils
 BuildRequires:  gettext
-BuildRequires:  libclaw-devel
+BuildRequires:  libclaw-devel >= 1.7.4-16
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(sdl2)
@@ -157,6 +157,10 @@ fi
 
 
 %changelog
+* Mon Jan  9 2017 Michael Schwendt <mschwendt@fedoraproject.org> - 0.7.0-0.11.20161230git
+- fix Release tag to include snapshot checkout date
+- prepare rebuild against libclaw >= 1.7.4-16 for fix ABI compatibility
+
 * Mon Jan 02 2017 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.10git781ec80
 - add RR hicolor-icon-theme
 
