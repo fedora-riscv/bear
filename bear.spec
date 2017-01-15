@@ -4,7 +4,7 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.11.20161230git%{shortcommit0}%{?dist}
+Release:        0.12.20161230git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -78,10 +78,11 @@ sed -i -e 's|docbook-to-man|docbook2man|g' cmake-helper/docbook-to-man.cmake
 rm -rf bear-engine/core/src/visual/glew/
 
 %build
-%cmake -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%{_lib}/%{name} \
-       -DBEAR_FACTORY_INSTALL_LIBRARY_DIR=%{_lib}/%{name} \
+%cmake -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%{_lib} \
+       -DBEAR_FACTORY_INSTALL_LIBRARY_DIR=%{_lib} \
        -DCMAKE_SKIP_RPATH:BOOL=ON \
        -DBEAR_USES_FREEDESKTOP=ON \
+       -DRUNNING_BEAR_ENABLED=ON \
        -DBEAR_EDITORS_ENABLED=ON
 %make_build
 
@@ -90,14 +91,6 @@ rm -rf bear-engine/core/src/visual/glew/
 
 %find_lang %{name}-engine
 %find_lang %{name}-factory
-
-install -d %{buildroot}%{_sysconfdir}/ld.so.conf.d
-cat << EOF > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-engine-%{_arch}.conf
-%{_libdir}/%{name}
-EOF
-cat << EOF > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-factory-%{_arch}.conf
-%{_libdir}/%{name}
-EOF
 
 # copy devel files for subpkg bear-devel
 install -dm 755 %{buildroot}%{_includedir}/%{name}/cmake-helper/
@@ -115,11 +108,16 @@ rm -rf %{buildroot}%{_datadir}/applications/desc2img.desktop
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
+%post engine -p /sbin/ldconfig
+%postun engine -p /sbin/ldconfig
+
 %post factory
+/sbin/ldconfig
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 /usr/bin/update-desktop-database &> /dev/null || :
 
 %postun factory
+/sbin/ldconfig
 /usr/bin/update-desktop-database &> /dev/null || :
 if [ $1 -eq 0 ]; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
@@ -132,10 +130,10 @@ fi
 %files engine -f %{name}-engine.lang
 %doc README.md
 %license LICENSE license/CCPL license/GPL
-%{_libdir}/%{name}
-%exclude %{_libdir}/%{name}/lib%{name}-editor.so
+%{_bindir}/running-%{name}
+%{_libdir}/lib%{name}_*.so
+%exclude %{_libdir}/lib%{name}-editor.so
 %{_mandir}/man6/running-%{name}.6*
-%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-engine-%{_arch}.conf
 
 %files factory -f %{name}-factory.lang
 %doc README.md
@@ -143,12 +141,11 @@ fi
 %{_bindir}/bend-image
 %{_bindir}/image-cutter
 %{_bindir}/bf*editor
-%{_libdir}/%{name}/lib%{name}-editor.so
+%{_libdir}/lib%{name}-editor.so
 %{_datadir}/%{name}-factory
 %{_datadir}/applications/bf*editor.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}-factory.png
 %{_mandir}/man1/bf*editor.1*
-%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-factory-%{_arch}.conf
 
 %files devel
 %doc README.md
@@ -157,6 +154,14 @@ fi
 
 
 %changelog
+* Sat Jan 14 2017 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.12.20161230git
+- remove %%{name}-engine-%%{_arch}.conf %%{name}-factory-%%{_arch}.conf
+- add missing /sbin/ldconfig calls in %%post and %%postun
+- add CMAKE option -DRUNNING_BEAR_ENABLED=ON for missing running-bear file
+- add %%{_bindir}/running-%%{name} to engine file section
+- install engine libraries into -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%%{_lib}
+- install factory libraires into -DBEAR_FACTORY_INSTALL_LIBRARY_DIR=%%{_lib}
+
 * Mon Jan  9 2017 Michael Schwendt <mschwendt@fedoraproject.org> - 0.7.0-0.11.20161230git
 - fix Release tag to include snapshot checkout date
 - prepare rebuild against libclaw >= 1.7.4-16 for fix ABI compatibility
