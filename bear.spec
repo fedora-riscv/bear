@@ -160,7 +160,7 @@ fi
 - add CMAKE option -DRUNNING_BEAR_ENABLED=ON for missing running-bear file
 - add %%{_bindir}/running-%%{name} to engine file section
 - install engine libraries into -DBEAR_ENGINE_INSTALL_LIBRARY_DIR=%%{_lib}
-- install factory libraires into -DBEAR_FACTORY_INSTALL_LIBRARY_DIR=%%{_lib}
+- install factory libraries into -DBEAR_FACTORY_INSTALL_LIBRARY_DIR=%%{_lib}
 
 * Mon Jan  9 2017 Michael Schwendt <mschwendt@fedoraproject.org> - 0.7.0-0.11.20161230git
 - fix Release tag to include snapshot checkout date
