@@ -4,7 +4,7 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.12.20161230git%{shortcommit0}%{?dist}
+Release:        0.13.20161230git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -20,7 +20,11 @@ BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-utils
 BuildRequires:  gettext
+%if 0%{?fedora} >= 26
+BuildRequires:  libclaw-devel >= 1.7.4-17
+%else
 BuildRequires:  libclaw-devel >= 1.7.4-16
+%endif
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(sdl2)
@@ -154,6 +158,9 @@ fi
 
 
 %changelog
+* Wed Feb 01 2017 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.13.20161230git
+- rebuild for rawhide, with libclaw-devel >= 1.7.4-17
+
 * Sat Jan 14 2017 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.12.20161230git
 - remove %%{name}-engine-%%{_arch}.conf %%{name}-factory-%%{_arch}.conf
 - add missing /sbin/ldconfig calls in %%post and %%postun
