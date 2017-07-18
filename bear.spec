@@ -4,7 +4,7 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.13.20161230git%{shortcommit0}%{?dist}
+Release:        0.14.20161230git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Tue Jul 18 2017 Jonathan Wakely <jwakely@redhat.com> - 0.7.0-0.14.20161230git781ec80
+- Rebuilt for Boost 1.64
+
 * Wed Feb 01 2017 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.13.20161230git
 - rebuild for rawhide, with libclaw-devel >= 1.7.4-17
 
