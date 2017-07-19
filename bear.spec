@@ -4,7 +4,7 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.14.20161230git%{shortcommit0}%{?dist}
+Release:        0.15.20161230git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Wed Jul 19 2017 Jonathan Wakely <jwakely@redhat.com> - 0.7.0-0.15.20161230git781ec80
+- Rebuilt for s390x binutils bug
+
 * Tue Jul 18 2017 Jonathan Wakely <jwakely@redhat.com> - 0.7.0-0.14.20161230git781ec80
 - Rebuilt for Boost 1.64
 
