@@ -4,7 +4,7 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.17.20161230git%{shortcommit0}%{?dist}
+Release:        0.18.20161230git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
@@ -115,21 +115,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %post engine -p /sbin/ldconfig
 %postun engine -p /sbin/ldconfig
 
-%post factory
-/sbin/ldconfig
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%postun factory
-/sbin/ldconfig
-/usr/bin/update-desktop-database &> /dev/null || :
-if [ $1 -eq 0 ]; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans factory
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%post factory -p /sbin/ldconfig
+%postun factory -p /sbin/ldconfig
 
 %files engine -f %{name}-engine.lang
 %doc README.md
@@ -158,6 +145,9 @@ fi
 
 
 %changelog
+* Sun Jan 07 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.7.0-0.18.20161230git781ec80
+- Remove obsolete scriptlets
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.17.20161230git781ec80
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
