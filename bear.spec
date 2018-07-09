@@ -15,6 +15,7 @@ Source0:        https://github.com/j-jorge/bear/archive/%{commit0}/%{name}-%{com
 ExcludeArch:    ppc64le
 %endif
 
+BuildRequires:  gcc-c++
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
