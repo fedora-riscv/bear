@@ -4,11 +4,12 @@
 
 Name:           bear
 Version:        0.7.0
-Release:        0.21.20161230git%{shortcommit0}%{?dist}
+Release:        0.22.20161230git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA 
 URL:            https://github.com/j-jorge/bear
 Source0:        https://github.com/j-jorge/bear/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Patch0:         wxwidgets-3.0.patch
 
 # Build is broken on ppc64le 
 %if 0%{?fedora} >= 26
@@ -30,8 +31,7 @@ BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(SDL2_mixer)
-BuildRequires:  wxGTK-devel
-BuildConflicts: wxGTK3-devel
+BuildRequires:  wxGTK3-devel
 Requires:       hicolor-icon-theme
 
 
@@ -74,7 +74,7 @@ Requires: %{name}-engine%{?_isa} = %{version}-%{release}
 Development files for %{name}
 
 %prep
-%setup -qn %{name}-%{commit0}
+%autosetup -n %{name}-%{commit0} -p 1
 
 # change docbook_to_man to docbook2man
 sed -i -e 's|docbook-to-man|docbook2man|g' cmake-helper/docbook-to-man.cmake
@@ -146,6 +146,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jul 20 2018 Scott Talbert <swt@techie.net> - 0.7.0-0.22.20161230git781ec80
+- Fix building with wxWidgets 3.0
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.21.20161230git781ec80
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
