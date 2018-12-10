@@ -1,0 +1,61 @@
+From b8f212a2e6cc4b4d169f0e916f6ee2fd18973cf8 Mon Sep 17 00:00:00 2001
+From: Scott Talbert <swt@techie.net>
+Date: Thu, 28 Jun 2018 17:37:25 -0400
+Subject: [PATCH] Fix compilation with wxWidgets 3.0
+
+---
+ bear-factory/CMakeLists.txt                                | 2 ++
+ bear-factory/bear-editor/src/bf/code/accelerator_table.cpp | 2 +-
+ .../bear-editor/src/bf/code/base_editor_application.cpp    | 7 +++++--
+ 3 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/bear-factory/CMakeLists.txt b/bear-factory/CMakeLists.txt
+index 6c01034..fb40cde 100644
+--- a/bear-factory/CMakeLists.txt
++++ b/bear-factory/CMakeLists.txt
+@@ -99,6 +99,8 @@ if( NOT wxWidgets_FOUND )
+   message( "wxWidgets not found" )
+ endif( NOT wxWidgets_FOUND )
+ 
++add_definitions( "-DNDEBUG" )
++
+ #-------------------------------------------------------------------------------
+ # path to the images used in the interface
+ if( NOT BF_IMAGES_PATH )
+diff --git a/bear-factory/bear-editor/src/bf/code/accelerator_table.cpp b/bear-factory/bear-editor/src/bf/code/accelerator_table.cpp
+index d9420eb..4a33140 100644
+--- a/bear-factory/bear-editor/src/bf/code/accelerator_table.cpp
++++ b/bear-factory/bear-editor/src/bf/code/accelerator_table.cpp
+@@ -99,6 +99,6 @@ void bf::accelerator_table::on_key_pressed( wxKeyEvent& event )
+   if ( it != m_accelerators.end() )
+     {
+       wxCommandEvent command( wxEVT_COMMAND_MENU_SELECTED, it->second );
+-      m_event_handler.ProcessEvent( command );
++      m_event_handler.GetEventHandler()->ProcessEvent( command );
+     }
+ } // accelerator_table::on_key_pressed()
+diff --git a/bear-factory/bear-editor/src/bf/code/base_editor_application.cpp b/bear-factory/bear-editor/src/bf/code/base_editor_application.cpp
+index e49f15f..074f14e 100644
+--- a/bear-factory/bear-editor/src/bf/code/base_editor_application.cpp
++++ b/bear-factory/bear-editor/src/bf/code/base_editor_application.cpp
+@@ -347,12 +347,15 @@ int bf::base_editor_application::find_option_index
+  */
+ void bf::base_editor_application::remove_options_at( int index, int count )
+ {
++  // In wx 3.0, argv is a wxCmdLineArgsArray, so need to fetch a mutable copy
++  wxChar** argv_copy = argv;
+   for ( int i=index; (i+count <= argc); ++i )
+-    argv[i] = argv[i + count];
++    argv_copy[i] = argv_copy[i + count];
+ 
+   for ( int i=0; i != count; ++i )
+     {
+       --argc;
+-      argv[argc] = NULL;
++      argv_copy[argc] = NULL;
+     }
++  argv = argv_copy;
+ } // base_editor_application::remove_options_at()
+-- 
+2.17.1
+
