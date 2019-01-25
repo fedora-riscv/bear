@@ -1,6 +1,6 @@
 Name:           bear
 Version:        2.3.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
@@ -63,6 +63,9 @@ make check
 %doc ChangeLog.md README.md
 
 %changelog
+* Fri Jan 25 2019 Jonathan Wakely <jwakely@redhat.com> - 2.3.13-3
+- Rebuilt for Boost 1.69
+
 * Sat Nov 24 2018 Dan Čermák <dan.cermak@cgc-instruments.de> - 2.3.13-2
 - Implement suggestions from Robert-André Mauchin and Till Hofmann
 
