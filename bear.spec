@@ -1,6 +1,6 @@
 Name:           bear
 Version:        2.3.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
@@ -63,6 +63,9 @@ make check
 %doc ChangeLog.md README.md
 
 %changelog
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Fri Jan 25 2019 Jonathan Wakely <jwakely@redhat.com> - 2.3.13-3
 - Rebuilt for Boost 1.69
 
