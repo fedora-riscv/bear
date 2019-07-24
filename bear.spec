@@ -1,6 +1,6 @@
 Name:           bear
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
@@ -63,6 +63,9 @@ make check
 %doc ChangeLog.md README.md
 
 %changelog
+* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Tue May 14 2019 Dan Čermák <dan.cermak@cgc-instruments.de> - 2.4.0-1
 - Bump version to 2.4.0
 
