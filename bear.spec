@@ -1,5 +1,5 @@
 Name:           bear
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -50,6 +50,7 @@ make check
 
 %files
 %{_bindir}/bear
+%{_datadir}/bash-completion/completions/bear
 %{_mandir}/man1/bear.1*
 
 %{_libdir}/bear/
@@ -63,6 +64,10 @@ make check
 %doc ChangeLog.md README.md
 
 %changelog
+* Wed Jul 31 2019 Wolfgang Stöggl <c72578@yahoo.de> - 2.4.1-1
+- Bump version to 2.4.1
+- Add %%{_datadir}/bash-completion/completions/bear to %%files
+
 * Tue May 14 2019 Dan Čermák <dan.cermak@cgc-instruments.de> - 2.4.0-1
 - Bump version to 2.4.0
 
