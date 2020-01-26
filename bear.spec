@@ -1,5 +1,5 @@
 Name:           bear
-Version:        2.4.2
+Version:        2.4.3
 Release:        1%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -64,6 +64,9 @@ make check
 %doc ChangeLog.md README.md
 
 %changelog
+* Sun Jan 26 2020 Dan Čermák <dan.cermak@cgc-instruments.com> - 2.4.3-1
+- Bump version to 2.4.3
+
 * Sun Sep  8 2019 Dan Čermák <dan.cermak@cgc-instruments.com> - 2.4.2-1
 - Bump version to 2.4.2
 
