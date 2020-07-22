@@ -26,10 +26,10 @@ tooling.
 
 %build
 %cmake .
-%make_build
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
 # Fix shebang line
 for f in %{buildroot}/%{_bindir}/* ; do
@@ -44,7 +44,7 @@ rm %{buildroot}/%{_datadir}/doc/bear/COPYING
 # Tests fail on EPEL, only run them on Fedora
 %if 0%{?fedora}
 %check
-make check
+make check -C %{_vpath_builddir}
 %endif
 
 
