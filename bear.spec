@@ -12,6 +12,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  clang
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires: make
 # python3-lit is only needed for the tests which we only run on Fedora
 %{?fedora:BuildRequires: python3-lit}
 
