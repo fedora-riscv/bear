@@ -1,0 +1,83 @@
+commit b48ca5d90c129d26702e458f7ad9ba65d7585f2a
+Author: Till Hofmann <thofmann@fedoraproject.org>
+Date:   Wed Dec 30 13:27:10 2020 +0100
+
+    Install files into /usr/libexec/bear instead of directly into /usr/libexec
+    
+    As the installed files have rather generic names (e.g., libexec.so), put them
+    into a sub-directory so it is clear that those files belong to bear.
+
+diff --git a/source/config.h.in b/source/config.h.in
+index 2ca8853..48370fd 100644
+--- a/source/config.h.in
++++ b/source/config.h.in
+@@ -65,6 +65,6 @@ constexpr char VERSION[] = "@CMAKE_PROJECT_VERSION@";
+ 
+ constexpr char CITNAMES_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_BINDIR@/citnames";
+ constexpr char INTERCEPT_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_BINDIR@/intercept";
+-constexpr char LIBRARY_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBEXECDIR@/@CMAKE_SHARED_LIBRARY_PREFIX@exec@CMAKE_SHARED_LIBRARY_SUFFIX@";
+-constexpr char EXECUTOR_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBEXECDIR@/er";
+-constexpr char WRAPPER_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBEXECDIR@/wrapper.d";
++constexpr char LIBRARY_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBEXECDIR@/bear/@CMAKE_SHARED_LIBRARY_PREFIX@exec@CMAKE_SHARED_LIBRARY_SUFFIX@";
++constexpr char EXECUTOR_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBEXECDIR@/bear/er";
++constexpr char WRAPPER_DEFAULT_PATH[] = "@ROOT_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBEXECDIR@/bear/wrapper.d";
+diff --git a/source/intercept/CMakeLists.txt b/source/intercept/CMakeLists.txt
+index f3ca535..5b2962f 100644
+--- a/source/intercept/CMakeLists.txt
++++ b/source/intercept/CMakeLists.txt
+@@ -111,9 +111,9 @@ target_link_libraries(wrapper rpc_a)
+ target_link_libraries(wrapper spdlog::spdlog)
+ 
+ install(TARGETS wrapper
+-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR})
++        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bear)
+ install(DIRECTORY
+-        DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/wrapper.d)
++        DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bear/wrapper.d)
+ install(CODE "
+     execute_process(
+         COMMAND ln -sf ../wrapper ar
+@@ -145,7 +145,7 @@ install(CODE "
+         COMMAND ln -sf ../wrapper objdump
+         COMMAND ln -sf ../wrapper ranlib
+         COMMAND ln -sf ../wrapper readelf
+-        WORKING_DIRECTORY ${DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/wrapper.d
++        WORKING_DIRECTORY ${DESTDIR}${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/bear/wrapper.d
+     )
+ ")
+ 
+@@ -164,7 +164,7 @@ target_link_libraries(er rpc_a)
+ target_link_libraries(er spdlog::spdlog)
+ 
+ install(TARGETS er
+-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR})
++        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bear)
+ 
+ add_library(exec_a OBJECT
+         source/report/libexec/Buffer.cc
+@@ -206,7 +206,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+ endif ()
+ 
+ install(TARGETS exec
+-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBEXECDIR})
++        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bear)
+ 
+ # Create unit test.
+ if (ENABLE_UNIT_TESTS)
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 97ec800..0d136b2 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -53,9 +53,9 @@ if (LIT_EXECUTABLE)
+             -D_BIN_BEAR=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/bear
+             -D_BIN_CITNAMES=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/citnames
+             -D_BIN_INTERCEPT=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/intercept
+-            -D_BIN_ER=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/er
+-            -D_BIN_WRAPPER=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/wrapper.d
+-            -D_LIB_EXEC=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}exec${CMAKE_SHARED_LIBRARY_SUFFIX}
++            -D_BIN_ER=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/bear/er
++            -D_BIN_WRAPPER=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/bear/wrapper.d
++            -D_LIB_EXEC=${STAGED_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBEXECDIR}/bear/${CMAKE_SHARED_LIBRARY_PREFIX}exec${CMAKE_SHARED_LIBRARY_SUFFIX}
+             -v
+             ${CMAKE_CURRENT_BINARY_DIR})
+ 

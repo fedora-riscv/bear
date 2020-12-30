@@ -1,0 +1,12 @@
+diff --git a/source/libflags/include/libflags/Flags.h b/source/libflags/include/libflags/Flags.h
+index f9c9f93..5fbbd64 100644
+--- a/source/libflags/include/libflags/Flags.h
++++ b/source/libflags/include/libflags/Flags.h
+@@ -21,6 +21,7 @@
+ 
+ #include <list>
+ #include <map>
++#include <optional>
+ #include <string_view>
+ #include <tuple>
+ #include <vector>

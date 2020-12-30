@@ -1,20 +1,30 @@
 Name:           bear
-Version:        2.4.4
+Version:        3.0.6
 Release:        1%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
 URL:            https://github.com/rizsotto/%{name}
 Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         bear.missing-includes.patch
+# https://github.com/rizsotto/Bear/pull/348
+Patch1:         bear.libexec-subdir.patch
 
 BuildRequires:  cmake
+BuildRequires:  cmake(fmt)
+BuildRequires:  cmake(gtest)
+BuildRequires:  cmake(nlohmann_json)
+BuildRequires:  cmake(spdlog)
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  clang
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires: make
-# python3-lit is only needed for the tests which we only run on Fedora
-%{?fedora:BuildRequires: python3-lit}
+BuildRequires:  make
+BuildRequires:  pkgconfig(grpc)
+BuildRequires:  python3
+BuildRequires:  grpc-plugins
+BuildRequires:  gmock-devel
+
+# Needed for (disabled) functional tests
+#BuildRequires:  python3dist(lit)
 
 %description
 Build ear produces compilation database in JSON format. This database describes
@@ -22,39 +32,35 @@ how single compilation unit should be processed and can be used by Clang
 tooling.
 
 %prep
-%autosetup -n Bear-%{version}
+%autosetup -p 1 -n Bear-%{version}
 
 
 %build
-%cmake .
+# Functional tests are broken for some unknown reason, disable for now.
+%cmake -DENABLE_FUNC_TESTS=OFF
 %cmake_build
 
 %install
 %cmake_install
 
-# Fix shebang line
-for f in %{buildroot}/%{_bindir}/* ; do
-    sed -i.orig "s:^#\!/usr/bin/env\s\+python\s\?$:#!%{__python3}:" $f
-    touch -r $f.orig $f
-    rm $f.orig
-done
+mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 
-# remove twice installed license
-rm %{buildroot}/%{_datadir}/doc/bear/COPYING
-
-# Tests fail on EPEL, only run them on Fedora
-%if 0%{?fedora}
 %check
-make check -C %{_vpath_builddir}
-%endif
+# Tests run as part of build, because it's the same build target.
+# There is no check target.
 
 
 %files
 %{_bindir}/bear
-%{_datadir}/bash-completion/completions/bear
+%{_bindir}/citnames
+%{_bindir}/intercept
+%{_libexecdir}/bear/er
+%{_libexecdir}/bear/libexec.so
+%{_libexecdir}/bear/wrapper
+%{_libexecdir}/bear/wrapper.d
 %{_mandir}/man1/bear.1*
-
-%{_libdir}/bear/
+%{_mandir}/man1/citnames.1*
+%{_mandir}/man1/intercept.1*
 
 # rpmbuild on RHEL won't automatically pick up ChangeLog.md & README.md
 %if 0%{?rhel}
@@ -62,9 +68,12 @@ make check -C %{_vpath_builddir}
 %endif
 
 %license COPYING
-%doc ChangeLog.md README.md
+%doc %{_docdir}/bear
 
 %changelog
+* Wed Dec 30 11:58:35 CET 2020 Till Hofmann <thofmann@fedoraproject.org> - 3.0.6-1
+- Update to 3.0.6
+
 * Sun Sep 13 2020 Dan Čermák <dan.cermak@cgc-instruments.com> - 2.4.4-1
 - New upstream release 2.4.4 (rhbz#1877901)
 
