@@ -1,5 +1,5 @@
 Name:           bear
-Version:        3.0.6
+Version:        3.0.7
 Release:        1%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -17,11 +17,12 @@ BuildRequires:  cmake(nlohmann_json)
 BuildRequires:  cmake(spdlog)
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  gmock-devel
+BuildRequires:  grpc-plugins
 BuildRequires:  make
 BuildRequires:  pkgconfig(grpc)
+BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  python3
-BuildRequires:  grpc-plugins
-BuildRequires:  gmock-devel
 
 # Needed for (disabled) functional tests
 #BuildRequires:  python3dist(lit)
@@ -71,6 +72,9 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
+* Sun Jan 24 2021 Till Hofmann <thofmann@fedoraproject.org> - 3.0.7-1
+- Update to 3.0.7
+
 * Wed Dec 30 11:58:35 CET 2020 Till Hofmann <thofmann@fedoraproject.org> - 3.0.6-1
 - Update to 3.0.6
 
