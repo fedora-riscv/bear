@@ -10,3 +10,15 @@ index f9c9f93..5fbbd64 100644
  #include <string_view>
  #include <tuple>
  #include <vector>
+diff --git a/source/citnames/source/semantic/Parsers.h b/source/citnames/source/semantic/Parsers.h
+index 8868bd5..7c48bd2 100644
+--- a/source/citnames/source/semantic/Parsers.h
++++ b/source/citnames/source/semantic/Parsers.h
+@@ -25,6 +25,7 @@
+ #include <cstdint>
+ #include <list>
+ #include <map>
++#include <optional>
+ #include <string>
+ 
+ #include <spdlog/spdlog.h>
