@@ -1,12 +1,12 @@
 Name:           bear
-Version:        3.0.7
-Release:        2%{?dist}
+Version:        3.0.11
+Release:        1%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
 URL:            https://github.com/rizsotto/%{name}
 Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         bear.missing-includes.patch
+
 # https://github.com/rizsotto/Bear/pull/348
 Patch1:         bear.libexec-subdir.patch
 
@@ -21,11 +21,15 @@ BuildRequires:  gmock-devel
 BuildRequires:  grpc-plugins
 BuildRequires:  make
 BuildRequires:  pkgconfig(grpc)
-BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  python3
 
 # Needed for (disabled) functional tests
 #BuildRequires:  python3dist(lit)
+
+# Work around RHBZ#1959600 (https://github.com/rizsotto/Bear/issues/309), which
+# caused a test failure on s390x. It may only be happenstance that no other
+# architectures were affected.
+%global _lto_cflags %{nil}
 
 %description
 Build ear produces compilation database in JSON format. This database describes
@@ -55,10 +59,7 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %{_bindir}/bear
 %{_bindir}/citnames
 %{_bindir}/intercept
-%{_libexecdir}/bear/er
-%{_libexecdir}/bear/libexec.so
-%{_libexecdir}/bear/wrapper
-%{_libexecdir}/bear/wrapper.d
+%{_libexecdir}/bear
 %{_mandir}/man1/bear.1*
 %{_mandir}/man1/citnames.1*
 %{_mandir}/man1/intercept.1*
@@ -72,6 +73,12 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
+* Thu May 13 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.11-1
+- Update to 3.0.11 (RHBZ#1921884)
+- Drop bear.missing-includes.patch, which was upstreamed
+- Rebase bear.libexec-subdir.patch from PR#348 as actually merged upstream
+- Disable LTO to work around RHBZ#1959600
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
