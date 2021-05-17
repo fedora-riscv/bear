@@ -73,7 +73,7 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
-* Thu May 13 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.11-1
+* Mon May 17 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.11-1
 - Update to 3.0.11 (RHBZ#1921884)
 - Drop bear.missing-includes.patch, which was upstreamed
 - Rebase bear.libexec-subdir.patch from PR#348 as actually merged upstream

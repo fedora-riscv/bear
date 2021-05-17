@@ -1,3 +1,27 @@
+From ff970d041a87719c32e50e1f17f93d00a6f3ec58 Mon Sep 17 00:00:00 2001
+From: Till Hofmann <hofmann@kbsg.rwth-aachen.de>
+Date: Fri, 30 Apr 2021 16:00:01 +0200
+Subject: [PATCH] Install files into /usr/libexec/bear instead of /usr/libexec
+ (#348)
+
+* Install files into /usr/libexec/bear instead of directly into /usr/libexec
+
+As the installed files have rather generic names (e.g., libexec.so), put them
+into a sub-directory so it is clear that those files belong to bear.
+
+* Use PRIVATE_INSTALLDIR for private binaries
+
+This defaults to `${LIBEXECDIR}/bear`, i.e., `/usr/libexec/bear`.
+
+Use the directory for all binaries that should not be in PATH or in the
+default link directory.
+---
+ CMakeLists.txt                  | 4 ++++
+ source/config.h.in              | 6 +++---
+ source/intercept/CMakeLists.txt | 8 ++++----
+ test/CMakeLists.txt             | 6 +++---
+ 4 files changed, 14 insertions(+), 10 deletions(-)
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 2a71eca..1820787 100644
 --- a/CMakeLists.txt
@@ -102,3 +126,6 @@ index e2d5d52..d73a106 100644
              -D_BIN_EVENTS_DB=${BEARSOURCE_BUILD_DIR}/intercept/events_db
              -v
              ${CMAKE_CURRENT_BINARY_DIR})
+-- 
+2.31.1
+
