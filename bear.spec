@@ -20,7 +20,8 @@ BuildRequires:  gcc-c++
 BuildRequires:  gmock-devel
 BuildRequires:  grpc-plugins
 BuildRequires:  make
-BuildRequires:  pkgconfig(grpc)
+BuildRequires:  pkgconfig(protobuf)
+BuildRequires:  pkgconfig(grpc++)
 BuildRequires:  python3
 
 # Needed for (disabled) functional tests
@@ -78,6 +79,8 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 - Drop bear.missing-includes.patch, which was upstreamed
 - Rebase bear.libexec-subdir.patch from PR#348 as actually merged upstream
 - Disable LTO to work around RHBZ#1959600
+- Change pkgconfig(grpc) to pkgconfig(grpc++), and add pkgconfig(protobuf), to
+  match the actual modules searched for in source/CMakeLists.txt
 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
