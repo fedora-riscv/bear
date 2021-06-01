@@ -1,14 +1,11 @@
 Name:           bear
-Version:        3.0.11
+Version:        3.0.12
 Release:        1%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
 URL:            https://github.com/rizsotto/%{name}
-Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/rizsotto/Bear/pull/348
-Patch1:         bear.libexec-subdir.patch
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  cmake(fmt)
@@ -74,6 +71,11 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
+* Tue Jun 01 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.12-1
+- Update to 3.0.12 (RHBZ#1966378)
+- Drop bear.libexec-subdir.patch, merged upstream in PR#348 and included in the
+  current release
+
 * Mon May 17 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.11-1
 - Update to 3.0.11 (RHBZ#1921884)
 - Drop bear.missing-includes.patch, which was upstreamed
