@@ -72,7 +72,8 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 
 %changelog
 * Tue Jun 01 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.12-1
-- Update to 3.0.12 (RHBZ#1966378)
+- Update to 3.0.12
+- Fixes rhbz#1966378
 - Drop bear.libexec-subdir.patch, merged upstream in PR#348 and included in the
   current release
 
