@@ -1,5 +1,5 @@
 Name:           bear
-Version:        3.0.12
+Version:        3.0.13
 Release:        1%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -22,7 +22,7 @@ BuildRequires:  pkgconfig(grpc++)
 BuildRequires:  python3
 
 # Needed for (disabled) functional tests
-#BuildRequires:  python3dist(lit)
+# BuildRequires:  python3dist(lit)
 
 # Work around RHBZ#1959600 (https://github.com/rizsotto/Bear/issues/309), which
 # caused a test failure on s390x. It may only be happenstance that no other
@@ -71,6 +71,10 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
+* Mon Jun 28 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 3.0.13-1
+- New upstream release 3.0.13
+- Fixes rhbz#1976681
+
 * Tue Jun 01 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.12-1
 - Update to 3.0.12
 - Fixes rhbz#1966378
