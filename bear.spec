@@ -1,6 +1,6 @@
 Name:           bear
 Version:        3.0.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
@@ -71,6 +71,9 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
+* Mon Jul 05 2021 Richard Shaw <hobbes1069@gmail.com> - 3.0.13-2
+- Rebuild for new fmt version.
+
 * Mon Jun 28 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 3.0.13-1
 - New upstream release 3.0.13
 - Fixes rhbz#1976681
