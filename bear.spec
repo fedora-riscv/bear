@@ -1,6 +1,6 @@
 Name:           bear
 Version:        3.0.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
@@ -71,6 +71,9 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Mon Jul 05 2021 Richard Shaw <hobbes1069@gmail.com> - 3.0.13-2
 - Rebuild for new fmt version.
 
