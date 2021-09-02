@@ -1,5 +1,5 @@
 Name:           bear
-Version:        3.0.13
+Version:        3.0.14
 Release:        %autorelease
 Summary:        Tool that generates a compilation database for clang tooling
 
