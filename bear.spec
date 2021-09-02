@@ -1,6 +1,6 @@
 Name:           bear
 Version:        3.0.13
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Tool that generates a compilation database for clang tooling
 
 License:        GPLv3+
@@ -71,72 +71,4 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %doc %{_docdir}/bear
 
 %changelog
-* Mon Jun 28 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 3.0.13-1
-- New upstream release 3.0.13
-- Fixes rhbz#1976681
-
-* Tue Jun 01 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.12-1
-- Update to 3.0.12
-- Fixes rhbz#1966378
-- Drop bear.libexec-subdir.patch, merged upstream in PR#348 and included in the
-  current release
-
-* Mon May 17 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.11-1
-- Update to 3.0.11 (RHBZ#1921884)
-- Drop bear.missing-includes.patch, which was upstreamed
-- Rebase bear.libexec-subdir.patch from PR#348 as actually merged upstream
-- Disable LTO to work around RHBZ#1959600
-- Change pkgconfig(grpc) to pkgconfig(grpc++), and add pkgconfig(protobuf), to
-  match the actual modules searched for in source/CMakeLists.txt
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Jan 24 2021 Till Hofmann <thofmann@fedoraproject.org> - 3.0.7-1
-- Update to 3.0.7
-
-* Wed Dec 30 11:58:35 CET 2020 Till Hofmann <thofmann@fedoraproject.org> - 3.0.6-1
-- Update to 3.0.6
-
-* Sun Sep 13 2020 Dan Čermák <dan.cermak@cgc-instruments.com> - 2.4.4-1
-- New upstream release 2.4.4 (rhbz#1877901)
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Jan 26 2020 Dan Čermák <dan.cermak@cgc-instruments.com> - 2.4.3-1
-- Bump version to 2.4.3
-
-* Sun Sep  8 2019 Dan Čermák <dan.cermak@cgc-instruments.com> - 2.4.2-1
-- Bump version to 2.4.2
-
-* Wed Jul 31 2019 Wolfgang Stöggl <c72578@yahoo.de> - 2.4.1-1
-- Bump version to 2.4.1
-- Add %%{_datadir}/bash-completion/completions/bear to %%files
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue May 14 2019 Dan Čermák <dan.cermak@cgc-instruments.de> - 2.4.0-1
-- Bump version to 2.4.0
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jan 25 2019 Jonathan Wakely <jwakely@redhat.com> - 2.3.13-3
-- Rebuilt for Boost 1.69
-
-* Sat Nov 24 2018 Dan Čermák <dan.cermak@cgc-instruments.de> - 2.3.13-2
-- Implement suggestions from Robert-André Mauchin and Till Hofmann
-
-* Fri Oct  5 2018 Dan Čermák <dan.cermak@cgc-instruments.de> - 2.3.13-1
-- Bump version to 2.3.13
-
-* Tue Apr 10 2018 Dan Čermák <dan.cermak@cgc-instruments.de> 2.3.11-1
-- Bump version to 2.3.11
-
-* Thu Sep 03 2015 Pavel Odvody <podvody@redhat.com> 2.1.2-1.git15f4447
-- new package built with tito
+%autochangelog
