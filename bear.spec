@@ -1,5 +1,5 @@
 Name:           bear
-Version:        3.0.14
+Version:        3.0.15
 Release:        %autorelease
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -57,7 +57,7 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 %{_bindir}/bear
 %{_bindir}/citnames
 %{_bindir}/intercept
-%{_libexecdir}/bear
+%{_libdir}/bear
 %{_mandir}/man1/bear.1*
 %{_mandir}/man1/citnames.1*
 %{_mandir}/man1/intercept.1*
