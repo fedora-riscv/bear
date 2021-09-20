@@ -22,7 +22,7 @@ BuildRequires:  pkgconfig(grpc++)
 BuildRequires:  python3
 
 # Needed for (disabled) functional tests
-# BuildRequires:  python3dist(lit)
+BuildRequires:  python3dist(lit)
 
 # Work around RHBZ#1959600 (https://github.com/rizsotto/Bear/issues/309), which
 # caused a test failure on s390x. It may only be happenstance that no other
@@ -39,8 +39,12 @@ tooling.
 
 
 %build
+for f in $(ls test/bin/); do
+    sed -i "s|^#\!/usr/bin/env\s\+python\s\?$|#!%{__python3}|" test/bin/$f
+done
+
 # Functional tests are broken for some unknown reason, disable for now.
-%cmake -DENABLE_FUNC_TESTS=OFF
+%cmake -DENABLE_FUNC_TESTS=ON
 %cmake_build
 
 %install
