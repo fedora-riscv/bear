@@ -21,8 +21,13 @@ BuildRequires:  pkgconfig(protobuf)
 BuildRequires:  pkgconfig(grpc++)
 BuildRequires:  python3
 
-# Needed for (disabled) functional tests
+# Needed for functional tests
 BuildRequires:  python3dist(lit)
+BuildRequires:  /usr/bin/more
+BuildRequires:  /usr/bin/xargs
+BuildRequires:  gcc-fortran
+BuildRequires:  valgrind
+BuildRequires:  fakeroot
 
 # Work around RHBZ#1959600 (https://github.com/rizsotto/Bear/issues/309), which
 # caused a test failure on s390x. It may only be happenstance that no other
@@ -44,7 +49,7 @@ for f in $(ls test/bin/); do
 done
 
 # Functional tests are broken for some unknown reason, disable for now.
-%cmake -DENABLE_FUNC_TESTS=ON
+%cmake -DENABLE_FUNC_TESTS=ON -DENABLE_UNIT_TESTS=ON
 %cmake_build
 
 %install
