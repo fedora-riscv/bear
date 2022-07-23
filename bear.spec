@@ -1,5 +1,5 @@
 Name:           bear
-Version:        3.0.19
+Version:        3.0.20
 Release:        %autorelease
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -47,15 +47,6 @@ tooling.
 for f in $(ls test/bin/); do
     sed -i "s|^#\!/usr/bin/env\s\+python\s\?$|#!%{__python3}|" test/bin/$f
 done
-
-# Temporary workaround for API changes in fmt 9.0. See:
-#
-# Build failure with fmt-9.0.0
-# https://github.com/rizsotto/Bear/issues/471
-#
-# Note that this macro will be removed in fmt 10.0.
-%set_build_flags
-export CXXFLAGS="${CXXFLAGS} -DFMT_DEPRECATED_OSTREAM"
 
 # Functional tests are broken for some unknown reason, disable for now.
 %cmake -DENABLE_FUNC_TESTS=ON -DENABLE_UNIT_TESTS=ON
