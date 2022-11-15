@@ -48,7 +48,6 @@ for f in $(ls test/bin/); do
     sed -i "s|^#\!/usr/bin/env\s\+python\s\?$|#!%{__python3}|" test/bin/$f
 done
 
-# Functional tests are broken for some unknown reason, disable for now.
 %cmake -DENABLE_FUNC_TESTS=ON -DENABLE_UNIT_TESTS=ON
 %cmake_build
 
